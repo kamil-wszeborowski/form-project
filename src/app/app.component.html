@@ -1,20 +1,294 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="container">
+  <form class="form-horizontal" [formGroup]="userData" (ngSubmit)="onSubmit()">
+    <div class="panel panel-primary">
 
+      <div class="panel-heading">
+        <h3 class="panel-title">Form for people</h3>
+      </div>
+
+      <div class="panel-body">
+
+        <div class="form-group" [ngClass]="{'has-error': ((userData.get('name').touched ||
+        userData.get('name').dirty) && userData.get('name').errors)}">
+          <label class="col-md-4 control-label" for="name"> Name: </label>
+          <div class="col-md-4">
+            <input class="form-control input-md" type="text" name="" id="name" formControlName="name">
+            <span class="help-block" *ngIf="((userData.get('name').touched || 
+                    userData.get('name').dirty) && 
+                    userData.get('name').errors)">
+              <span *ngIf="userData.get('name').errors.required">Name is required.</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error': ((userData.get('surname').touched ||
+        userData.get('surname').dirty) && userData.get('surname').errors)}">
+          <label class="col-md-4 control-label" for="surname"> Surname: </label>
+          <div class="col-md-4">
+            <input class="form-control input-md" type="text" name="" id="surname" formControlName="surname">
+            <span class="help-block" *ngIf="((userData.get('surname').touched || 
+              userData.get('surname').dirty) && 
+              userData.get('surname').errors)">
+              <span *ngIf="userData.get('surname').errors.required">Surname is required.</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error': ((userData.get('email').touched ||
+        userData.get('email').dirty) && userData.get('email').errors)}">
+          <label class="col-md-4 control-label" for="email"> Email: </label>
+          <div class="col-md-4">
+            <input class="form-control input-md" type="text" name="" id="email" formControlName="email">
+            <span class="help-block" *ngIf="((userData.get('surname').touched || 
+            userData.get('email').dirty) && 
+            userData.get('email').errors)">
+              <span *ngIf="userData.get('email').errors.email">Email is not correct.</span>
+              <span *ngIf="userData.get('email').errors.required">Email is required.</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error': ((userData.get('phone').touched ||
+        userData.get('phone').dirty) && userData.get('phone').errors)}">
+          <label class="col-md-4 control-label" for="phone"> Phone: </label>
+          <div class="col-md-4">
+            <input class="form-control input-md" type="text" name="" id="phone" formControlName="phone">
+            <span class="help-block" *ngIf="((userData.get('phone').touched || 
+            userData.get('phone').dirty) && 
+            userData.get('phone').errors)">
+              <span *ngIf="userData.get('phone').errors.pattern">Phone may contain only numbers, space and this
+                characters:
+                ()+-.</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error': ((userData.get('password').touched ||
+        userData.get('password').dirty) && userData.get('password').errors)}">
+          <label class="col-md-4 control-label" for="password"> Password: </label>
+          <div class="col-md-4">
+            <input class="form-control input-md" type="text" name="" id="password" formControlName="password">
+            <span class="help-block" *ngIf="((userData.get('password').touched || 
+            userData.get('password').dirty) && 
+            userData.get('password').errors)">
+              <span *ngIf="userData.get('password').errors.required">Password is required.</span>
+              <span *ngIf="userData.get('password').errors.pattern">Password should contain:
+                one of: @,#,$,%,^,& ,
+                one of: upper letter ,
+                should by between 8 and 30 characters.
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error': ((userData.get('confirmPassword').touched ||
+        userData.get('confirmPassword').dirty) && userData.get('confirmPassword').errors)}">
+          <label class="col-md-4 control-label" for="confirmPassword"> Confirm password: </label>
+          <div class="col-md-4">
+            <input class="form-control input-md" type="text" name="" appConfirmEqualValidator="password"
+              id="confirmPassword" formControlName="confirmPassword">
+            <!-- appConfirmEqualValidator="password"-->
+            <span class="help-block" *ngIf="((userData.get('confirmPassword').touched || 
+            userData.get('confirmPassword').dirty) && 
+            userData.get('confirmPassword').errors)">
+              <span *ngIf="userData.get('confirmPassword').errors.required">Confirm Password is required.</span>
+              <span *ngIf="!userData.get('confirmPassword').errors.appConfirmEqualValidator"> Confirm Password is not
+                equal to Password.</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error': ((userData.get('pet').touched ||
+              userData.get('pet').dirty) && userData.get('pet').errors)}">
+          <label class="col-md-4 control-label" for="radios">Your pet is ?</label>
+          <div class="col-md-0"></div>
+          <label class="radio-inline" for="dog">
+            <input type="radio" value="dog" name="pet" formControlName="pet">
+            Dog
+          </label>
+          <label class="radio-inline" for="cat">
+            <input type="radio" value="cat" name="pet" formControlName="pet">
+            Cat
+          </label>
+          <label class="radio-inline" for="other">
+            <input type="radio" value="other" name="pet" formControlName="pet">
+            Other
+          </label>
+          <div class="radio-inline">
+            <span class="help-block" *ngIf="((userData.get('pet').touched || 
+                userData.get('pet').dirty) && 
+                userData.get('pet').errors)">
+              <span *ngIf="userData.get('pet').errors.required">Choice is required.</span>
+            </span>
+          </div>
+        </div>
+
+        <fieldset formGroupName="address">
+          <div class="form-group">
+            <label class="col-md-4 control-label">Address:</label>
+            <div class="col-md-4">
+
+              <div class="form-group" [ngClass]="{'has-error': ((userData.get('address.city').touched ||
+                userData.get('address.city').dirty) && userData.get('address.city').errors)}">
+                <label class="row-md-4 control-label" for="city"> City: </label>
+                <div class="row-md-4">
+                  <input class="form-control input-md" type="text" name="" id="city" formControlName="city">
+                  <span class="help-block" *ngIf="((userData.get('address.city').touched || 
+                  userData.get('address.city').dirty) && 
+                  userData.get('address.city').errors)">
+                    <span *ngIf="userData.get('address.city').errors.required">City is required.</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="form-group" [ngClass]="{'has-error': ((userData.get('address.street').touched ||
+                userData.get('address.street').dirty) && userData.get('address.street').errors)}">
+                <label class="row-md-4 control-label" for="street">Street:</label>
+                <div class="row-md-4">
+                  <input class="form-control input-md" type="text" name="" id="street" formControlName="street">
+                  <span class="help-block" *ngIf="((userData.get('address.street').touched || 
+                  userData.get('address.street').dirty) && 
+                  userData.get('address.street').errors)">
+                    <span *ngIf="userData.get('address.street').errors.required">Street is required.</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="form-group" [ngClass]="{'has-error': ((userData.get('address.building').touched ||
+                userData.get('address.building').dirty) && userData.get('address.building').errors)}">
+                <label class="row-md-4 control-label" for="building">Building:</label>
+                <div class="row-md-4">
+                  <input class="form-control input-md" type="text" name="" id="building" formControlName="building">
+                  <span class="help-block" *ngIf="((userData.get('address.building').touched || 
+                  userData.get('address.building').dirty) && 
+                  userData.get('address.building').errors)">
+                    <span *ngIf="userData.get('address.building').errors.required">Building is required.</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="row-md-4 control-label" for="flatNo">Flat:</label>
+                <div class="row-md-4">
+                  <input class="form-control input-md" type="text" name="" id="flatNo" formControlName="flatNo">
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset formGroupName="consents">
+          <div class="form-group">
+            <label class="col-md-4 control-label">Other:</label>
+            <div class="col-md-4">
+
+              <div class="form-group " [ngClass]="{'has-error': ((userData.get('consents.newsletter').touched ||
+                  userData.get('consents.newsletter').dirty) && userData.get('consents.newsletter').errors)}">
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="newsletter" formControlName="newsletter">
+                  Newsletter
+                </label>
+                <span class="help-block" *ngIf="((userData.get('consents.newsletter').touched || 
+                  userData.get('consents.newsletter').dirty) && 
+                  userData.get('consents.newsletter').errors)">
+                  <span *ngIf="userData.get('consents.newsletter').errors.required">Newsletter is required.</span>
+                </span>
+              </div>
+
+              <!--<span [ngClass]="{ 'glyphicon glyphicon-ok-circle':volunteer.isActive == true }"></span>  visibility: hidden
+              userData.get('phone').errors.pattern
+              [ngStyle]="{ 'visibility':userData.get('phone').errors.required == true ? 'hidden' : 'visible' }"
+              -->
+              <div class="form-group" >
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="sms" formControlName="sms">
+                  SMS
+                </label>
+              </div>
+            </div>
+          </div>
+
+        </fieldset>
+      </div>
+
+      <div class="panel-footer">
+        <button class="btn btn-primary" type="submit" [disabled]="!userData.valid">Submit</button>
+        <!-- [disabled]="!userData.valid" warunki muszą byc spełnione żeby submit był klikalny-->
+      </div>
+
+    </div>
+  </form>
+
+  <h1> {{ userData.status }} </h1> <!-- mówi o tym czy formularz jest prawidłowo uzupełniony-->
+  <!-- <p> {{ firstName.value }} </p> 
+  <pre>{{ userData.value | json }}</pre>
+  <button (click)="setName()">Set name</button> -->
+
+
+
+  <table border="1">
+    <tr>
+      <th style="padding: 10px">FormControle (name)</th>
+      <th style="padding: 10px">FormControle (surname)</th>
+      <th style="padding: 10px">FormControle (email)</th>
+      <th style="padding: 10px">FormControle (phone)</th>
+      <th style="padding: 10px">FormControle (password)</th>
+      <th style="padding: 10px">FormControle (confirmPassword)</th>
+      <th style="padding: 10px">FormControle (pet)</th>
+    </tr>
+    <tr>
+      <td style="padding: 10px">
+        valid : {{ userData.get('name').valid }}
+        <br /> Name Value : {{ userData.get('name').value }}
+      </td>
+      <td style="padding: 10px">
+        valid : {{ userData.get('surname').valid }}
+        <br /> Surname Value : {{ userData.get('surname').value }}
+      </td>
+      <td style="padding: 10px">
+        valid : {{ userData.get('email').valid }}
+        <br /> Email Value : {{ userData.get('email').value }}
+      </td>
+      <td style="padding: 10px">
+        valid : {{ userData.get('phone').valid }}
+        <br /> Phone Value : {{ userData.get('phone').value }}
+      </td>
+      <td style="padding: 10px">
+        valid : {{ userData.get('password').valid }}
+        <br /> Password Value : {{ userData.get('password').value }}
+      </td>
+      <td style="padding: 10px">
+        valid : {{ userData.get('confirmPassword').valid }}
+        <br /> Confirm password Value : {{ userData.get('confirmPassword').value }}
+      </td>
+      <td style="padding: 10px">
+        valid : {{ userData.get('pet').valid }}
+        <br /> Pet Value : {{ userData.get('pet').value }}
+      </td>
+    </tr>
+  </table>
+</div>
+<!--
+  <table border="1">
+    <tr>
+      <th style="padding: 10px">Form Group</th>
+      <th style="padding: 10px">FormControle (fullName)</th>
+    </tr>
+    <tr>
+      <td style="padding: 10px">
+        touched : {{ userData.touched }}
+        <br/> dirty : {{ userData.dirty }}
+        <br/> valid : {{ userData.valid }}
+        <br/> Form Values : {{ userData.value | json }}
+      </td>
+      <td style="padding: 10px">
+        touched : {{ userData.get('name').touched }}
+        <br/> dirty : {{ userData.get('name').dirty }}
+        <br/> valid : {{ userData.get('name').valid }}
+        <br/> Full Name Value : {{ userData.get('name').value}}
+      </td>
+    </tr>
+  </table>
+  -->
