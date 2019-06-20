@@ -56,7 +56,8 @@
             <span class="help-block" *ngIf="((userData.get('phone').touched || 
             userData.get('phone').dirty) && 
             userData.get('phone').errors)">
-              <span *ngIf="userData.get('phone').errors.pattern">Phone may contain only numbers, space and this
+              <span *ngIf="userData.get('phone').errors.pattern">The phone should by build from 9 to 16 characters.
+                Phone may contain only numbers, space and this
                 characters:
                 ()+-.</span>
             </span>
@@ -196,12 +197,8 @@
                   <span *ngIf="userData.get('consents.newsletter').errors.required">Newsletter is required.</span>
                 </span>
               </div>
-
-              <!--<span [ngClass]="{ 'glyphicon glyphicon-ok-circle':volunteer.isActive == true }"></span>  visibility: hidden
-              userData.get('phone').errors.pattern
-              [ngStyle]="{ 'visibility':userData.get('phone').errors.required == true ? 'hidden' : 'visible' }"
-              -->
-              <div class="form-group" >
+              <div class="form-group"
+                [ngClass]="{'hidden':userData.get('phone').touched == false || userData.get('phone').valid == false }">
                 <label class="checkbox-inline">
                   <input type="checkbox" name="sms" formControlName="sms">
                   SMS
@@ -221,13 +218,13 @@
     </div>
   </form>
 
-  <h1> {{ userData.status }} </h1> <!-- mówi o tym czy formularz jest prawidłowo uzupełniony-->
+ <!-- <h1> {{ userData.status }} </h1>  mówi o tym czy formularz jest prawidłowo uzupełniony-->
   <!-- <p> {{ firstName.value }} </p> 
   <pre>{{ userData.value | json }}</pre>
   <button (click)="setName()">Set name</button> -->
 
 
-
+<!--
   <table border="1">
     <tr>
       <th style="padding: 10px">FormControle (name)</th>
@@ -254,6 +251,7 @@
       <td style="padding: 10px">
         valid : {{ userData.get('phone').valid }}
         <br /> Phone Value : {{ userData.get('phone').value }}
+        <br /> Phone Touched : {{ userData.get('phone').touched }}
       </td>
       <td style="padding: 10px">
         valid : {{ userData.get('password').valid }}
@@ -270,25 +268,4 @@
     </tr>
   </table>
 </div>
-<!--
-  <table border="1">
-    <tr>
-      <th style="padding: 10px">Form Group</th>
-      <th style="padding: 10px">FormControle (fullName)</th>
-    </tr>
-    <tr>
-      <td style="padding: 10px">
-        touched : {{ userData.touched }}
-        <br/> dirty : {{ userData.dirty }}
-        <br/> valid : {{ userData.valid }}
-        <br/> Form Values : {{ userData.value | json }}
-      </td>
-      <td style="padding: 10px">
-        touched : {{ userData.get('name').touched }}
-        <br/> dirty : {{ userData.get('name').dirty }}
-        <br/> valid : {{ userData.get('name').valid }}
-        <br/> Full Name Value : {{ userData.get('name').value}}
-      </td>
-    </tr>
-  </table>
-  -->
+-->
